@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     setLoading(true);
     try {
-      await account.createEmailSession(email, password);
+      await account.createEmailPasswordSession(email, password);
       const currentUser = await account.get();
       setUser(currentUser);
       setError(null);

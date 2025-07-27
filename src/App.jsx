@@ -1,10 +1,13 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import Home from './pages/Home';
 import ForgotPasswordPage from './pages/ForgetPasswordPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
+import ItemDetail from './pages/items/ItemDetail';
+import FloatingAddButton from './components/FloatingAddButton';
 
 function App() {
   return (
@@ -17,11 +20,21 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
+              
               <Home />
+              {/* <Navbar/> */}
+              <FloatingAddButton />
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<LoginPage />} /> {/* Default route */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/item/:id" element={
+          <>
+            <ItemDetail />
+            <FloatingAddButton />
+          </>
+        } />
+        <Route path="*" element={<LoginPage />} />
       </Routes>
     </Router>
   );
